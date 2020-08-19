@@ -1,3 +1,16 @@
+// https://codepen.io/yananas/pen/rwvZvY
+// display the lines/drawing - DONE
+// add an eraser:
+  // The eraser acts like a smudge eraser.
+  // When a user smudges over a line in eraser mode, that erases the entire line.
+  // When a user points and clicks a line, it erases.
+// bonus: sync with firebase for CRDT functionality
+// bonus: Add other tools like colors, highlighting, photos, or something else!
+// bonus: draw bezier curves
+// share the repo with jobs@classkick.com and pro@classkick.com
+// email this doc to jobs@classkick.com
+// https://docs.google.com/document/d/1oZMvdSoxhI4Ui_xGcbve5qKTcMTdor159stq_Rt9_ZY/edit#heading=h.jd7duor6jz70
+
 document.addEventListener("DOMContentLoaded", function() {
     // SETTING ALL VARIABLES
     var isMouseDown = false;
@@ -5,8 +18,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var body = document.getElementsByTagName("body")[0];
     var ctx = canvas.getContext('2d');
     var linesArray = [];
-    currentSize = 5;
-    var currentColor = "rgb(200,20,100)";
+    currentSize = 1;
+    var currentColor = "black";
     var currentBg = "white";
 
     // INITIAL LAUNCH
