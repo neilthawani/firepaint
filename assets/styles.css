@@ -18,9 +18,29 @@ body {
 }
 
 canvas {
-    cursor: crosshair;
+    /* cursor: crosshair; */
     border: 1px solid black;
 }
+/*
+.cursor-small {
+    cursor: url('circle24px.png'), auto;
+}
+
+.cursor-medium {
+    cursor: url('circle36px.png'), auto;
+}
+
+.cursor-large {
+    cursor: url('circle48px.png'), auto;
+}
+
+canvas.drawing {
+
+}
+
+canvas.erasing {
+
+} */
 
 .menu {
     width: 100%;
@@ -48,8 +68,6 @@ canvas {
     background-color: #ccc;
     cursor: pointer;
 }
-
-
 
 .menu-option-input {
     margin-bottom: 5px;

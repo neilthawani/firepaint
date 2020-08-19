@@ -1,9 +1,7 @@
 // https://codepen.io/yananas/pen/rwvZvY
 // display the lines/drawing - DONE
-// add an eraser:
-  // The eraser acts like a smudge eraser.
-  // When a user smudges over a line in eraser mode, that erases the entire line.
-  // When a user points and clicks a line, it erases.
+// add an eraser: - DONE
+  // Different-sized erasers
 // bonus: sync with firebase for CRDT functionality
 // bonus: Add other tools like colors, highlighting, photos, or something else!
 // bonus: draw bezier curves
@@ -12,17 +10,16 @@
 // https://docs.google.com/document/d/1oZMvdSoxhI4Ui_xGcbve5qKTcMTdor159stq_Rt9_ZY/edit#heading=h.jd7duor6jz70
 
 document.addEventListener("DOMContentLoaded", function() {
-    // SETTING ALL VARIABLES
+    // initialization
     var isMouseDown = false;
     var canvas = document.createElement('canvas');
     var body = document.getElementsByTagName("body")[0];
+    var canvasContainer = document.getElementsByClassName("canvas-container")[0];
     var ctx = canvas.getContext('2d');
     var linesArray = [];
-    currentSize = 1;
+    var currentSize = 1;
     var currentColor = "black";
     var currentBg = "white";
-
-    // INITIAL LAUNCH
 
     createCanvas();
 
@@ -32,9 +29,12 @@ document.addEventListener("DOMContentLoaded", function() {
     //     createCanvas();
     //     redraw();
     // });
+
+    // event handlers
     document.getElementById('draw-colorpicker').addEventListener('change', function() {
         currentColor = this.value;
     });
+
     document.getElementById('background-colorpicker').addEventListener('change', function() {
         ctx.fillStyle = this.value;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -48,7 +48,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // document.getElementById('saveToImage').addEventListener('click', function() {
     //     downloadCanvas(this, 'canvas', 'masterpiece.png');
     // }, false);
-    document.getElementById('eraser').addEventListener('click', eraser);
+    document.getElementById('eraser').addEventListener('click', function() {
+        currentSize = 50;
+        currentColor = ctx.fillStyle
+    });
     // document.getElementById('clear').addEventListener('click', createCanvas);
     // document.getElementById('save').addEventListener('click', save);
     // document.getElementById('load').addEventListener('click', load);
@@ -57,8 +60,6 @@ document.addEventListener("DOMContentLoaded", function() {
     //     linesArray = [];
     //     console.log("Cache cleared!");
     // });
-
-    // REDRAW
 
     function redraw() {
         for (var i = 1; i < linesArray.length; i++) {
@@ -72,39 +73,52 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // DRAWING EVENT HANDLERS
+    // drawing event handlers
 
-    canvas.addEventListener('mousedown', function() {
-        mousedown(canvas, event);
-    });
-    canvas.addEventListener('mousemove', function() {
-        mousemove(canvas, event);
-    });
-    canvas.addEventListener('mouseup', mouseup);
+    canvas.addEventListener('mousedown', function(evt) {
+        var mousePos = getMouseCoords(canvas, evt);
+        isMouseDown = true
+        var currentPosition = getMouseCoords(canvas, evt);
+        ctx.moveTo(currentPosition.x, currentPosition.y)
+        ctx.beginPath();
+        ctx.lineWidth = currentSize;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = currentColor;
 
-    // CREATE CANVAS
+    });
+    canvas.addEventListener('mousemove', function(evt) {
+
+        if (isMouseDown) {
+            var currentPosition = getMouseCoords(canvas, evt);
+            ctx.lineTo(currentPosition.x, currentPosition.y)
+            ctx.stroke();
+            storeData(currentPosition.x, currentPosition.y, currentSize, currentColor);
+        }
+    });
+    canvas.addEventListener('mouseup', function(evt) {
+        isMouseDown = false
+        storeData();
+    });
 
     function createCanvas() {
         canvas.id = "canvas";
-        canvas.width = 800; // parseInt(document.getElementById("sizeX").value);
-        canvas.height = 600; // parseInt(document.getElementById("sizeY").value);
+        canvas.width = 800;
+        canvas.height = 600;
         canvas.style.zIndex = 8;
         canvas.style.position = "absolute";
         canvas.style.border = "1px solid";
         ctx.fillStyle = currentBg;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        body.appendChild(canvas);
+        canvasContainer.appendChild(canvas);
     }
 
     // DOWNLOAD CANVAS
-
     // function downloadCanvas(link, canvas, filename) {
     //     link.href = document.getElementById(canvas).toDataURL();
     //     link.download = filename;
     // }
 
     // SAVE FUNCTION
-
     // function save() {
     //     localStorage.removeItem("savedCanvas");
     //     localStorage.setItem("savedCanvas", JSON.stringify(linesArray));
@@ -112,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // }
 
     // LOAD FUNCTION
-
     // function load() {
     //     if (localStorage.getItem("savedCanvas") != null) {
     //         linesArray = JSON.parse(localStorage.savedCanvas);
@@ -132,16 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //     }
     // }
 
-    // ERASER HANDLING
-
-    function eraser() {
-        currentSize = 50;
-        currentColor = ctx.fillStyle
-    }
-
-    // GET MOUSE POSITION
-
-    function getMousePos(canvas, evt) {
+    function getMouseCoords(canvas, evt) {
         var rect = canvas.getBoundingClientRect();
         return {
             x: evt.clientX - rect.left,
@@ -149,48 +153,13 @@ document.addEventListener("DOMContentLoaded", function() {
         };
     }
 
-    // ON MOUSE DOWN
-
-    function mousedown(canvas, evt) {
-        var mousePos = getMousePos(canvas, evt);
-        isMouseDown = true
-        var currentPosition = getMousePos(canvas, evt);
-        ctx.moveTo(currentPosition.x, currentPosition.y)
-        ctx.beginPath();
-        ctx.lineWidth = currentSize;
-        ctx.lineCap = "round";
-        ctx.strokeStyle = currentColor;
-
-    }
-
-    // ON MOUSE MOVE
-
-    function mousemove(canvas, evt) {
-
-        if (isMouseDown) {
-            var currentPosition = getMousePos(canvas, evt);
-            ctx.lineTo(currentPosition.x, currentPosition.y)
-            ctx.stroke();
-            store(currentPosition.x, currentPosition.y, currentSize, currentColor);
-        }
-    }
-
-    // STORE DATA
-
-    function store(x, y, s, c) {
+    function storeData(x, y, size, color) {
         var line = {
             "x": x,
             "y": y,
-            "size": s,
-            "color": c
+            "size": size,
+            "color": color
         }
         linesArray.push(line);
-    }
-
-    // ON MOUSE UP
-
-    function mouseup() {
-        isMouseDown = false
-        store()
     }
 });
