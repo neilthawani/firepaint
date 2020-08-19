@@ -1,3 +1,83 @@
+:root {
+    --border: 1px solid #aaa;
+}
+
+body {
+    font-family: "San Francisco", Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+/* .mdi:hover {
+    cursor: pointer;
+    background-color: #aaa;
+} */
+
+.canvas-container {
+    margin: 20px auto;
+    width: 800px;
+}
+
+canvas {
+    cursor: crosshair;
+    border: 1px solid black;
+}
+
+.menu {
+    width: 100%;
+    min-height: 50px;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-option {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    /* border: var(--border); */
+    padding: 5px 10px;
+}
+
+.menu-option .mdi {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.menu-option.button:hover,
+.menu-option.button span:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+
+
+.menu-option-input {
+    margin-bottom: 5px;
+    padding: 0;
+    height: 25px;
+    width: 25px;
+}
+
+.menu-option-label {
+    font-size: 10px;
+}
+
+/* .menu-button {
+    display: flex;
+}
+
+.menu-button:not(:first-child) {
+
+}
+
+.menu-button .mdi-chevron-down {
+    font-size: 24px;
+}
+
+.menu-button-options .mdi {
+    font-size: 48px;
+} */
+
 // Desktop
 @media (min-width: 992px) {
     .visible-phone {
@@ -11,3 +91,48 @@
         display: none;
     }
 }
+
+/* .colorButtons {
+	display: block;
+	margin: 20px 0;
+} */
+
+
+/* .sidebar {
+	position: absolute;
+	left: 0;
+	width: 150px;
+	padding: 20px 20px;
+	top: 0;
+} */
+
+/* canvas#canvas {
+	left: 150px;
+	top: 45px;
+}
+
+.btn {
+	margin-bottom: 10px;
+	width: 100%;
+}
+input {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.input-group {
+	margin-bottom: 10px;
+}
+
+.toolsButtons .btn {
+	width: 48%;
+}
+
+.sizeButtons .btn {
+	width: 48%;
+}
+
+.colorpicker {
+	background: transparent;
+	height: 40px;
+} */

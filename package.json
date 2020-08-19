@@ -1,22 +1,23 @@
 {
-  "name": "firepaint",
+  "name": "Firepaint",
   "version": "1.0.0",
   "description": "",
-  "main": "scripts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/neilthawani/firepaint.git"
   },
-  "author": "",
+  "author": "Neil Thawani",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/neilthawani/firepaint/issues"
   },
   "homepage": "https://github.com/neilthawani/firepaint#readme",
   "dependencies": {
+    "@mdi/font": "^5.5.55",
     "live-server": "^1.2.1"
   }
 }

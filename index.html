@@ -5,10 +5,100 @@
       Firepaint
     </title>
     <link rel="icon" href="assets/favicon.png">
+    <link href="node_modules/@mdi/font/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="assets/styles.css">
 
     <script type="text/javascript" src="assets/scripts.js"></script>
   </head>
   <body>
+    <div class="menu">
+      <div class="menu-option button">
+        <span title="Draw pencil" class="mdi mdi-pencil-outline"></span>
+        <span class="menu-option-label">Draw</span>
+      </div>
+
+      <div class="menu-option button">
+        <span id="eraser" class="mdi mdi-eraser"></span>
+        <span class="menu-option-label">Erase</span>
+        <!-- <div class="menu-button-options">
+          <span title="Small" class="mdi mdi-circle-small"></span>
+          <span title="Medium" class="mdi mdi-circle-medium"></span>
+          <span title="Large" class="mdi mdi-circle"></span>
+        </div>
+        <span class="mdi mdi-chevron-down"> -->
+      </div>
+
+      <div class="menu-option">
+        <input type="color" value="#000000" id="draw-colorpicker" class="menu-option-input">
+        <span class="menu-option-label">Draw Color</span>
+      </div>
+
+      <div class="menu-option">
+        <input type="color" value="#ffffff" id="background-colorpicker" class="menu-option-input">
+        <span class="menu-option-label">Background Color</span>
+      </div>
+
+      <!-- <div class="menu-button">
+        <div class="menu-button-options">
+          <span title="Smudge eraser" class="mdi mdi-eraser"></span>
+          <span title="Line eraser" class="mdi mdi-eraser-variant"></span>
+        </div>
+        <span class="mdi mdi-chevron-down">
+      </div>
+
+      <div class="menu-button">
+
+      </div> -->
+    </div>
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+  	<!-- <div class="sidebar"> -->
+  		<!-- <div class="colorButtons">
+  			<h3>Colour</h3>
+
+  		</div> -->
+  		<!-- <div class="colorButtons"> -->
+
+  		<!-- </div> -->
+
+  		<!-- <div class="toolsButtons">
+  			<h3>Tools</h3>
+
+  			<button id="clear" class="btn btn-danger"> <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span></button>
+  		</div>
+
+  		<div class="buttonSize">
+  			<h3>Size (<span id="showSize">5</span>)</h3> -->
+  			<!-- <input type="range" min="1" max="50" value="5" step="1" id="controlSize"> -->
+  		<!-- </div>
+
+  		<div class="canvasSize">
+  			<h3>Canvas</h3>
+  			<div class="input-group">
+  				<span class="input-group-addon">X</span>
+  				<input type="number" id="sizeX" class="form-control" placeholder="sizeX" value="800" class="size">
+  			</div>
+  			<div class="input-group">
+  				<span class="input-group-addon">Y</span>
+  				<input type="number" id="sizeY" class="form-control" placeholder="sizeY" value="800" class="size">
+  			    </div> -->
+  			<!-- <input type="button" class="updateSize btn btn-success" value="Update" id="canvasUpdate"> -->
+  		<!-- </div> -->
+
+  		<!-- <div class="Storage">
+  			<h3>Storage</h3>
+  			<input type="button" value="Save" class="btn btn-warning" id="save">
+  			<input type="button" value="Load" class="btn btn-warning" id="load">
+  			<input type="button" value="Clear" class="btn btn-warning" id="clearCache">
+  		</div>
+  		<div class="extra">
+  			<h3>Extra</h3>
+  			<a id="saveToImage" class="btn btn-warning">Download</a>
+  		</div> -->
+
+  	<!-- </div> -->
+    <div class="canvas-container">
+    </div>
   </body>
 </html>
