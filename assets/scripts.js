@@ -145,6 +145,8 @@ function init() {
         messagingSenderId: '<MESSAGING_SENDER_ID>'
       });
 
+      // NOTE: To extend for CRDT functionality,
+      // add username or unique artist identifier.
       // schema:
       // {
       //   'lines': [
@@ -160,7 +162,7 @@ function init() {
       // }
 
       // get Firebase database reference
-      var firebaseDbRef = firebase.database().ref();
+      var firebaseDbRef = firebase.database();
 
       // get all the values of lines stored in the database
       var linesRef = firebaseDbRef.child('lines');
@@ -171,31 +173,25 @@ function init() {
 // accepts an array
 function save(lines) {
     for (var line of lines) {
-        firebase.storage()
-          .ref('lines')
-          .child(line.id)
-          .put(line);
+        firebase.database
+          .ref(`lines/${line.id}`)
+          .set({
+            line
+          }, function(error) {
+              if (error) {
+                  console.error("Error: ", error);
+              } else {
+                  console.log("Saved.");
+              }
+          });
     }
 }
 
 function load(id) {
-    firebase.storage()
-      .ref(`lines/${id}`)
-      .getDownloadURL()
+    firebase.database()
+      .ref(`/lines/${id}`)
+      .once('value')
       .then((res) => {
           console.log('data', res);
-      });
-}
-
-function loadAll() {
-    firebase.storage()
-      .ref('lines')
-      .listAll()
-      .then((res) => {
-          res.items.forEach((item) => {
-              item.getDownloadURL().then((url) => {
-                  console.log('url', url);
-              });
-          })
       });
 }
