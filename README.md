@@ -4,7 +4,9 @@ This a painting app built using HTML, CSS, and JavaScript.
 
 ## Installation
 
-To run in development, clone this repository and run:
+You should have [git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/en/) installed before installing this app.
+
+To run in development, [download](https://github.com/neilthawani/firepaint/archive/master.zip) or clone this repository and run the following in Powershell x86 (Windows) or Terminal (Mac/Unix):
 
 ```
 npm install
