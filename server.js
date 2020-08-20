@@ -5,7 +5,8 @@ var params = {
 	ignore: "node_modules",
 	file: "*", // TODO: set this for 404
 	wait: 0,
-	logLevel: 2
+	logLevel: 2,
+	port: 8080
 };
 
 liveServer.start(params);

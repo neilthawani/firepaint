@@ -13,6 +13,8 @@ npm install
 npm start
 ```
 
+The app should then be live at [localhost:8080](http://localhost:8080).
+
 ## Documentation
 
 `scripts.js` has the base logic for the app's painting functionality:
