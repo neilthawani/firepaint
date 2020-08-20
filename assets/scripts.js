@@ -1,40 +1,40 @@
 var currentSize = 24;
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
     // initialization
     var isMouseDown = false;
 
-    var body = document.getElementsByTagName("body")[0];
+    var body = document.getElementsByTagName('body')[0];
 
-    var pencilButton = document.getElementById("pencil");
-    var eraserButton = document.getElementById("eraser");
+    var pencilButton = document.getElementById('pencil');
+    var eraserButton = document.getElementById('eraser');
 
     var canvas = document.getElementById('canvas');
-    var canvasContainer = document.getElementsByClassName("canvas-container")[0];
+    var canvasContainer = document.getElementsByClassName('canvas-container')[0];
     var ctx = canvas.getContext('2d');
 
     var linesArray = [];
-    var currentColor = "black";
-    var currentBg = "white";
+    var currentColor = 'black';
+    var currentBg = 'white';
 
     createCanvas();
 
     // pencil button selection event handler
-    pencilButton.addEventListener("click", function() {
+    pencilButton.addEventListener('click', function() {
         currentColor = document.getElementById('draw-colorpicker').value;
-        eraserButton.classList.remove("active");
-        canvas.classList.remove("eraser");
-        this.classList.add("active");
-        canvas.classList.add("pencil");
+        eraserButton.classList.remove('active');
+        canvas.classList.remove('eraser');
+        this.classList.add('active');
+        canvas.classList.add('pencil');
     });
 
     // eraser button selection event handler
-    eraserButton.addEventListener("click", function() {
+    eraserButton.addEventListener('click', function() {
         currentColor = currentBg;
-        pencilButton.classList.remove("active");
-        canvas.classList.remove("pencil");
-        this.classList.add("active");
-        canvas.classList.add("eraser");
+        pencilButton.classList.remove('active');
+        canvas.classList.remove('pencil');
+        this.classList.add('active');
+        canvas.classList.add('eraser');
     });
 
     // drawing/erasing event handlers
@@ -45,8 +45,8 @@ document.addEventListener("DOMContentLoaded", function() {
         ctx.moveTo(currentPosition.x, currentPosition.y)
         ctx.beginPath();
         ctx.lineWidth = currentSize;
-        ctx.lineCap = "round";
-        ctx.strokeStyle = this.classList.contains("eraser") ? currentBg : currentColor;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = this.classList.contains('eraser') ? currentBg : currentColor;
     });
 
     canvas.addEventListener('mousemove', function(evt) {
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ctx.lineTo(currentPosition.x, currentPosition.y)
             ctx.stroke();
 
-            storeDrawData(currentPosition.x, currentPosition.y, currentSize, currentColor, this.classList.contains("eraser"));
+            storeDrawData(currentPosition.x, currentPosition.y, currentSize, currentColor, this.classList.contains('eraser'));
         }
     });
 
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function() {
             ctx.beginPath();
             ctx.moveTo(linesArray[i - 1].x, linesArray[i - 1].y);
             ctx.lineWidth = linesArray[i].size;
-            ctx.lineCap = "round";
+            ctx.lineCap = 'round';
             ctx.strokeStyle = linesArray[i].isErasing ? currentBg : linesArray[i].color;
             ctx.lineTo(linesArray[i].x, linesArray[i].y);
             ctx.stroke();
@@ -106,30 +106,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function storeDrawData(x, y, size, color, isErasing) {
         var line = {
-            "id": new Date().getTime(),
-            "x": x,
-            "y": y,
-            "size": size,
-            "color": color,
-            "isErasing": isErasing
+            'id': new Date().getTime(),
+            'x': x,
+            'y': y,
+            'size': size,
+            'color': color,
+            'isErasing': isErasing
         }
         linesArray.push(line);
     }
 });
 
 function changeSize(context, size) {
-    var changeSizeButtons = document.getElementsByClassName("change-size");
+    var changeSizeButtons = document.getElementsByClassName('change-size');
 
     for (var i = 0; i < changeSizeButtons.length; i++) {
         var button = changeSizeButtons[i];
 
-        if (button.classList.contains("active")) {
-             button.classList.remove("active");
+        if (button.classList.contains('active')) {
+             button.classList.remove('active');
              break;
         }
     }
 
-    context.classList.add("active");
+    context.classList.add('active');
     currentSize = size;
 }
 
@@ -147,14 +147,14 @@ function init() {
 
       // schema:
       // {
-      //   "lines": [
+      //   'lines': [
       //     {
-      //       "id": number,
-      //       "x": number,
-      //       "y": number,
-      //       "size": number,
-      //       "color": string,
-      //       "isErasing": boolean
+      //       'id': number,
+      //       'x': number,
+      //       'y': number,
+      //       'size': number,
+      //       'color': string,
+      //       'isErasing': boolean
       //     }
       //   ]
       // }
@@ -183,7 +183,7 @@ function load(id) {
       .ref(`lines/${id}`)
       .getDownloadURL()
       .then((res) => {
-          console.log("data", res);
+          console.log('data', res);
       });
 }
 
@@ -194,7 +194,7 @@ function loadAll() {
       .then((res) => {
           res.items.forEach((item) => {
               item.getDownloadURL().then((url) => {
-                  console.log("url", url);
+                  console.log('url', url);
               });
           })
       });
