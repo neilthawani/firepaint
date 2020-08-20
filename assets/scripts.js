@@ -30,14 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     createCanvas();
 
-    // BUTTON EVENT HANDLERS
-
-    // document.getElementById('canvasUpdate').addEventListener('click', function() {
-    //     createCanvas();
-    //     redraw();
-    // });
-
-    // event handlers
+    // pencil button selection event handler
     pencilButton.addEventListener("click", function() {
         currentColor = document.getElementById('draw-colorpicker').value;
         eraserButton.classList.remove("active");
@@ -46,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function() {
         canvas.classList.add("pencil");
     });
 
+    // eraser button selection event handler
     eraserButton.addEventListener("click", function() {
         currentColor = currentBg;
         pencilButton.classList.remove("active");
@@ -54,46 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
         canvas.classList.add("eraser");
     });
 
-    document.getElementById('draw-colorpicker').addEventListener('change', function() {
-        currentColor = this.value;
-    });
-
-    document.getElementById('background-colorpicker').addEventListener('change', function() {
-        ctx.fillStyle = this.value;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        currentBg = this.value;
-        redraw();
-    });
-    // document.getElementById('controlSize').addEventListener('change', function() {
-    //     currentSize = this.value;
-    //     document.getElementById("showSize").innerHTML = this.value;
-    // });
-    // document.getElementById('saveToImage').addEventListener('click', function() {
-    //     downloadCanvas(this, 'canvas', 'masterpiece.png');
-    // }, false);
-
-    // document.getElementById('clear').addEventListener('click', createCanvas);
-    // document.getElementById('save').addEventListener('click', save);
-    // document.getElementById('load').addEventListener('click', load);
-    // document.getElementById('clearCache').addEventListener('click', function() {
-    //     localStorage.removeItem("savedCanvas");
-    //     linesArray = [];
-    //     console.log("Cache cleared!");
-    // });
-
-    function redraw() {
-        for (var i = 1; i < linesArray.length; i++) {
-            ctx.beginPath();
-            ctx.moveTo(linesArray[i - 1].x, linesArray[i - 1].y);
-            ctx.lineWidth = linesArray[i].size;
-            ctx.lineCap = "round";
-            ctx.strokeStyle = linesArray[i].isErasing ? currentBg : linesArray[i].color;
-            ctx.lineTo(linesArray[i].x, linesArray[i].y);
-            ctx.stroke();
-        }
-    }
-
-    // drawing event handlers
+    // drawing/erasing event handlers
     canvas.addEventListener('mousedown', function(evt) {
         var mousePos = getMouseCoords(canvas, evt);
         isMouseDown = true
@@ -120,44 +75,36 @@ document.addEventListener("DOMContentLoaded", function() {
         storeDrawData();
     });
 
+    // foreground color change event handler
+    document.getElementById('draw-colorpicker').addEventListener('change', function() {
+        currentColor = this.value;
+    });
+
+    // background color change event handler
+    document.getElementById('background-colorpicker').addEventListener('change', function() {
+        ctx.fillStyle = this.value;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        currentBg = this.value;
+        redraw();
+    });
+
     function createCanvas() {
         ctx.fillStyle = currentBg;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         canvasContainer.appendChild(canvas);
     }
 
-    // DOWNLOAD CANVAS
-    // function downloadCanvas(link, canvas, filename) {
-    //     link.href = document.getElementById(canvas).toDataURL();
-    //     link.download = filename;
-    // }
-
-    // SAVE FUNCTION
-    // function save() {
-    //     localStorage.removeItem("savedCanvas");
-    //     localStorage.setItem("savedCanvas", JSON.stringify(linesArray));
-    //     console.log("Saved canvas!");
-    // }
-
-    // LOAD FUNCTION
-    // function load() {
-    //     if (localStorage.getItem("savedCanvas") != null) {
-    //         linesArray = JSON.parse(localStorage.savedCanvas);
-    //         var lines = JSON.parse(localStorage.getItem("savedCanvas"));
-    //         for (var i = 1; i < lines.length; i++) {
-    //             ctx.beginPath();
-    //             ctx.moveTo(linesArray[i - 1].x, linesArray[i - 1].y);
-    //             ctx.lineWidth = linesArray[i].size;
-    //             ctx.lineCap = "round";
-    //             ctx.strokeStyle = linesArray[i].color;
-    //             ctx.lineTo(linesArray[i].x, linesArray[i].y);
-    //             ctx.stroke();
-    //         }
-    //         console.log("Canvas loaded.");
-    //     } else {
-    //         console.log("No canvas in memory!");
-    //     }
-    // }
+    function redraw() {
+        for (var i = 1; i < linesArray.length; i++) {
+            ctx.beginPath();
+            ctx.moveTo(linesArray[i - 1].x, linesArray[i - 1].y);
+            ctx.lineWidth = linesArray[i].size;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = linesArray[i].isErasing ? currentBg : linesArray[i].color;
+            ctx.lineTo(linesArray[i].x, linesArray[i].y);
+            ctx.stroke();
+        }
+    }
 
     function getMouseCoords(canvas, evt) {
         var rect = canvas.getBoundingClientRect();
@@ -167,8 +114,10 @@ document.addEventListener("DOMContentLoaded", function() {
         };
     }
 
+
     function storeDrawData(x, y, size, color, isErasing) {
         var line = {
+            "id": new Date().getTime(),
             "x": x,
             "y": y,
             "size": size,
@@ -194,3 +143,130 @@ function changeSize(context, size) {
     context.classList.add("active");
     currentSize = size;
 }
+
+// this might go in an app.js file
+function init() {
+      // Initialize the Firebase SDK.
+      firebase.initializeApp({
+        apiKey: '<API_KEY>',
+        authDomain: '<PROJECT_ID>.firebaseapp.com',
+        databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
+        projectId: '<PROJECT_ID>',
+        storageBucket: '<PROJECT_ID>.appspot.com',
+        messagingSenderId: '<MESSAGING_SENDER_ID>'
+      });
+
+      // schema:
+      // {
+      //   "lines": [
+      //     {
+      //       "id": number,
+      //       "x": number,
+      //       "y": number,
+      //       "size": number,
+      //       "color": string,
+      //       "isErasing": boolean
+      //     }
+      //   ]
+      // }
+
+      // get Firebase database reference
+      var firebaseDbRef = firebase.database().ref();
+
+      // get all the values of lines stored in the database
+      var linesRef = firebaseDbRef.child('lines');
+}
+
+// Persistence layer scaffold
+
+// accepts an array
+function save(lines) {
+    for (var line of lines) {
+        firebase.storage()
+          .ref('lines')
+          .child(line.id)
+          .put(line);
+    }
+}
+
+function load(id) {
+    firebase.storage()
+      .ref(`lines/${id}`)
+      .getDownloadURL()
+      .then((res) => {
+          console.log("data", res);
+      });
+}
+
+function loadAll() {
+    firebase.storage()
+      .ref('lines')
+      .listAll()
+      .then((res) => {
+          res.items.forEach((item) => {
+              item.getDownloadURL().then((url) => {
+                  console.log("url", url);
+              });
+          })
+      });
+}
+
+
+// BUTTON EVENT HANDLERS
+
+// document.getElementById('canvasUpdate').addEventListener('click', function() {
+//     createCanvas();
+//     redraw();
+// });
+
+// document.getElementById('controlSize').addEventListener('change', function() {
+//     currentSize = this.value;
+//     document.getElementById("showSize").innerHTML = this.value;
+// });
+// document.getElementById('saveToImage').addEventListener('click', function() {
+//     downloadCanvas(this, 'canvas', 'masterpiece.png');
+// }, false);
+
+// document.getElementById('clear').addEventListener('click', createCanvas);
+// document.getElementById('save').addEventListener('click', save);
+// document.getElementById('load').addEventListener('click', load);
+// document.getElementById('clearCache').addEventListener('click', function() {
+//     localStorage.removeItem("savedCanvas");
+//     linesArray = [];
+//     console.log("Cache cleared!");
+// });
+
+
+
+// DOWNLOAD CANVAS
+// function downloadCanvas(link, canvas, filename) {
+//     link.href = document.getElementById(canvas).toDataURL();
+//     link.download = filename;
+// }
+
+// SAVE FUNCTION
+// function save() {
+//     localStorage.removeItem("savedCanvas");
+//     localStorage.setItem("savedCanvas", JSON.stringify(linesArray));
+//     console.log("Saved canvas!");
+// }
+
+// LOAD FUNCTION
+// function load() {
+//     if (localStorage.getItem("savedCanvas") != null) {
+//         linesArray = JSON.parse(localStorage.savedCanvas);
+//         var lines = JSON.parse(localStorage.getItem("savedCanvas"));
+//         for (var i = 1; i < lines.length; i++) {
+//             ctx.beginPath();
+//             ctx.moveTo(linesArray[i - 1].x, linesArray[i - 1].y);
+//             ctx.lineWidth = linesArray[i].size;
+//             ctx.lineCap = "round";
+//             ctx.strokeStyle = linesArray[i].color;
+//             ctx.lineTo(linesArray[i].x, linesArray[i].y);
+//             ctx.stroke();
+//         }
+//         console.log("Canvas loaded.");
+//     } else {
+//         console.log("No canvas in memory!");
+//     }
+// }
