@@ -1,7 +1,5 @@
 # Firepaint
 
-## Description
-
 This a painting app built using HTML, CSS, and JavaScript.
 
 ## Installation
@@ -24,7 +22,7 @@ npm start
 
 ### Future Directions
 
-Future directions can include:
+#### Future directions can include:
 
 - a "slider" for selecting paintbrush/eraser sizes
 - an improved eraser icon which shows the user what specifically is being erased
