@@ -24,6 +24,10 @@ npm start
 
 - a "slider" for selecting paintbrush/eraser sizes
 - an improved eraser icon which shows the user what specifically is being erased
+- the ability to draw straight and [curved (bezier) lines](https://www.w3schools.com/tags/canvas_beziercurveto.asp)
+- undo/redo buttons
+- copy or cut and paste within the canvas
+- export to file formats: png, pdf
 
 ### Persistence
 
