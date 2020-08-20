@@ -33,4 +33,4 @@ npm start
 
 ### Persistence
 
-At the bottom of the file is scaffold code for integrating a persistence layer into the app using Firebase or another BaaS. To make this work, you'll need to create a Firebase account, configure the `<KEY>`s at the bottom of `scripts.js`, and add HTML template code to connect to the saving and loading methods in `scripts.js`.
+At the bottom of the file is scaffold code for integrating a persistence layer into the app using Firebase. To make this work, you'll need to create a Firebase account, configure the `<KEY>`s in `init()` near the bottom of `scripts.js`, and add HTML template code to `index.html` to connect to the saving and loading methods in `scripts.js`.
