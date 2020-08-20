@@ -7,40 +7,32 @@ body {
     margin: 0;
 }
 
-/* .mdi:hover {
-    cursor: pointer;
-    background-color: #aaa;
-} */
+.media-warning {
+    display: none;
+}
+
+input[type="color" i] {
+    border: none;
+}
 
 .canvas-container {
-    margin: 20px auto;
-    width: 800px;
+    max-width: 768px;
+    margin: auto;
 }
 
 canvas {
-    /* cursor: crosshair; */
     border: 1px solid black;
-}
-/*
-.cursor-small {
-    cursor: url('circle24px.png'), auto;
+    width: 100%;
+    margin: 20px auto;
 }
 
-.cursor-medium {
-    cursor: url('circle36px.png'), auto;
+canvas.pencil {
+    cursor: url('pencil.png'), auto;
 }
 
-.cursor-large {
-    cursor: url('circle48px.png'), auto;
+canvas.eraser {
+    cursor: url('eraser.png'), auto;
 }
-
-canvas.drawing {
-
-}
-
-canvas.erasing {
-
-} */
 
 .menu {
     width: 100%;
@@ -54,103 +46,80 @@ canvas.erasing {
     display: flex;
     align-items: center;
     flex-direction: column;
-    /* border: var(--border); */
-    padding: 5px 10px;
+    padding: 0 8px 5px 8px;
+    text-align: center;
+    justify-content: space-between;
 }
 
 .menu-option .mdi {
-    font-size: 28px;
+    font-size: 48px;
     cursor: pointer;
 }
 
-.menu-option.button:hover,
-.menu-option.button span:hover {
+.menu-option-button-icons .mdi {
+    padding: 2px;
+    cursor: pointer;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+.selectable:hover,
+.active {
     background-color: #ccc;
     cursor: pointer;
 }
 
 .menu-option-input {
-    margin-bottom: 5px;
     padding: 0;
-    height: 25px;
-    width: 25px;
+    height: 48px;
+    width: 48px;
 }
 
 .menu-option-label {
     font-size: 10px;
+    margin-top: 2px;
 }
 
-/* .menu-button {
-    display: flex;
-}
-
-.menu-button:not(:first-child) {
-
-}
-
-.menu-button .mdi-chevron-down {
-    font-size: 24px;
-}
-
-.menu-button-options .mdi {
-    font-size: 48px;
-} */
-
-// Desktop
-@media (min-width: 992px) {
-    .visible-phone {
+/* Screen size: iPad and bigger */
+@media only screen and (max-width: 767px) {
+    .menu {
         display: none;
     }
-}
 
-// Mobile
-@media (max-width: 991px) {
-    .hidden-phone {
+    .canvas-container {
         display: none;
     }
+
+    .media-warning {
+        text-align: center;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 75%;
+        margin: auto;
+    }
+
+    .media-warning-icons .mdi {
+        font-size: 48px;
+    }
+
+    .media-warning-icons .mdi.red {
+        color: red;
+    }
+
+    .media-warning-icons .mdi.yellow {
+        color: yellow;
+    }
+
+    .media-warning-icons .mdi.green {
+        color: green;
+    }
+
+    .media-warning-icons .mdi.blue {
+        color: blue;
+    }
 }
-
-/* .colorButtons {
-	display: block;
-	margin: 20px 0;
-} */
-
-
-/* .sidebar {
-	position: absolute;
-	left: 0;
-	width: 150px;
-	padding: 20px 20px;
-	top: 0;
-} */
-
-/* canvas#canvas {
-	left: 150px;
-	top: 45px;
-}
-
-.btn {
-	margin-bottom: 10px;
-	width: 100%;
-}
-input {
-	width: 100%;
-	margin-bottom: 10px;
-}
-
-.input-group {
-	margin-bottom: 10px;
-}
-
-.toolsButtons .btn {
-	width: 48%;
-}
-
-.sizeButtons .btn {
-	width: 48%;
-}
-
-.colorpicker {
-	background: transparent;
-	height: 40px;
-} */

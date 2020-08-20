@@ -11,21 +11,49 @@
     <script type="text/javascript" src="assets/scripts.js"></script>
   </head>
   <body>
+    <div class="media-warning">
+      <div class="media-warning-icons">
+        <span title="Draw pencil" class="mdi mdi-grease-pencil red"></span>
+        <span title="Draw pencil" class="mdi mdi-grease-pencil yellow"></span>
+        <span title="Draw pencil" class="mdi mdi-grease-pencil green"></span>
+        <span title="Draw pencil" class="mdi mdi-grease-pencil blue"></span>
+      </div>
+
+      <h1>
+        Firepaint is best viewed on screens the same size as iPad and up. Try a bigger device! It'll be fun...
+      </h1>
+
+      <div class="media-warning-icons">
+        <span title="Draw pencil" class="mdi mdi-grease-pencil red"></span>
+        <span title="Draw pencil" class="mdi mdi-grease-pencil yellow"></span>
+        <span title="Draw pencil" class="mdi mdi-grease-pencil green"></span>
+        <span title="Draw pencil" class="mdi mdi-grease-pencil blue"></span>
+      </div>
+    </div>
+
+
     <div class="menu">
-      <div class="menu-option button">
-        <span title="Draw pencil" class="mdi mdi-pencil-outline"></span>
+      <div class="menu-option">
+        <div class="menu-option-button-icons">
+          <span class="change-size mdi mdi-24px mdi-checkbox-blank-circle-outline selectable active" onclick="changeSize(this, 24)"></span>
+          <span class="change-size mdi mdi-36px mdi-checkbox-blank-circle-outline selectable" onclick="changeSize(this, 36)"></span>
+          <span class="change-size mdi mdi-48px mdi-checkbox-blank-circle-outline selectable" onclick="changeSize(this, 48)"></span>
+        </div>
+        <span class="menu-option-label">Cursor Size</span>
+      </div>
+
+      <div id="pencil" class="menu-option selectable active">
+        <div class="menu-option-button-icons">
+          <span title="Draw pencil" class="mdi mdi-grease-pencil"></span>
+        </div>
         <span class="menu-option-label">Draw</span>
       </div>
 
-      <div class="menu-option button">
-        <span id="eraser" class="mdi mdi-eraser"></span>
-        <span class="menu-option-label">Erase</span>
-        <!-- <div class="menu-button-options">
-          <span title="Small" class="mdi mdi-circle-small"></span>
-          <span title="Medium" class="mdi mdi-circle-medium"></span>
-          <span title="Large" class="mdi mdi-circle"></span>
+      <div id="eraser" class="menu-option selectable">
+        <div class="menu-option-button-icons">
+          <span title="Erase" class="mdi mdi-eraser"></span>
         </div>
-        <span class="mdi mdi-chevron-down"> -->
+        <span class="menu-option-label">Erase</span>
       </div>
 
       <div class="menu-option">
@@ -37,18 +65,6 @@
         <input type="color" value="#ffffff" id="background-colorpicker" class="menu-option-input">
         <span class="menu-option-label">Background Color</span>
       </div>
-
-      <!-- <div class="menu-button">
-        <div class="menu-button-options">
-          <span title="Smudge eraser" class="mdi mdi-eraser"></span>
-          <span title="Line eraser" class="mdi mdi-eraser-variant"></span>
-        </div>
-        <span class="mdi mdi-chevron-down">
-      </div>
-
-      <div class="menu-button">
-
-      </div> -->
     </div>
 
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
@@ -99,6 +115,7 @@
 
   	<!-- </div> -->
     <div class="canvas-container">
+      <canvas id="canvas" class="pencil" width="768" height="600"></canvas>
     </div>
   </body>
 </html>
